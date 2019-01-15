@@ -6,8 +6,7 @@ const util = require('util');
 module.exports = (req, res, next) => {
 
   try {
-    console.log('something')
-    console.log(` this is the req.headers.auth ${util.inspect(req, {depth:20})}`)
+
     let [authType, authString] = req.headers.authorization.split(/\s+/);
     // console.log(authType, authString);
     // BASIC Auth  ... Authorization:Basic ZnJlZDpzYW1wbGU=
@@ -26,7 +25,7 @@ module.exports = (req, res, next) => {
   }
 
   function _authBasic(authString) {
-    console.log(`in _authBasic`);
+
     let base64Buffer = Buffer.from(authString,'base64'); // <Buffer 01 02...>
     let bufferString = base64Buffer.toString(); // john:mysecret
     let [username,password] = bufferString.split(':');  // variables username="john" and password="mysecret"
@@ -37,7 +36,7 @@ module.exports = (req, res, next) => {
   }
 
   function _authenticate(user) {
-    console.log(`in _authenticate`);
+
     if ( user ) {
       req.user = user;
       req.token = user.generateToken();
